@@ -42,7 +42,7 @@
     if (global.CubikI18N && global.CubikI18N.t) {
       return global.CubikI18N.t('loader.loading');
     }
-    return 'Loading Cubiks...';
+    return 'Loading...';
   }
 
   /**

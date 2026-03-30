@@ -1,0 +1,272 @@
+/**
+ * Cubik Builder - Tutorial Styles
+ * Driver.js v5.2
+ * @version 1.5.89 (v=1735)
+ */
+
+/* Overlay - click-through */
+.driver-overlay {
+  pointer-events: none !important;
+}
+
+/* Popover container */
+.driver-popover {
+  pointer-events: auto !important;
+  background: #1a1a1a !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: none !important;
+  color: #f0f0f0 !important;
+  max-width: 340px !important;
+  padding: 0 !important;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  overflow: visible !important;
+}
+
+/* Arrow */
+.driver-popover-arrow {
+  border: 8px solid transparent !important;
+}
+.driver-popover-arrow-side-left { border-right-color: #1a1a1a !important; }
+.driver-popover-arrow-side-right { border-left-color: #1a1a1a !important; }
+.driver-popover-arrow-side-top { border-bottom-color: #1a1a1a !important; }
+.driver-popover-arrow-side-bottom { border-top-color: #1a1a1a !important; }
+
+/* Title */
+.driver-popover-title {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  color: #fff !important;
+  margin: 0 !important;
+  padding: 18px 44px 0 18px !important;
+  line-height: 1.3 !important;
+}
+
+/* Close button — только белый крестик, тонкие ровные линии, без фона */
+.driver-popover-close-btn {
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  cursor: pointer !important;
+  transition: opacity 0.15s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.driver-popover-close-btn::before,
+.driver-popover-close-btn::after {
+  content: '' !important;
+  position: absolute !important;
+  width: 1px !important;
+  height: 14px !important;
+  background: #FFFFFF !important;
+  top: 50% !important;
+  left: 50% !important;
+}
+.driver-popover-close-btn::before {
+  transform: translate(-50%, -50%) rotate(45deg) !important;
+}
+.driver-popover-close-btn::after {
+  transform: translate(-50%, -50%) rotate(-45deg) !important;
+}
+.driver-popover-close-btn:hover::before,
+.driver-popover-close-btn:hover::after {
+  background: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Description */
+.driver-popover-description {
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: #aaa !important;
+  padding: 12px 18px 16px !important;
+  margin: 0 !important;
+  white-space: pre-line !important;
+}
+
+/* Progress */
+.driver-popover-progress-text {
+  font-size: 11px !important;
+  color: #555 !important;
+  padding: 0 18px 10px !important;
+  margin: 0 !important;
+}
+
+/* Footer */
+.driver-popover-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 14px 16px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: rgba(0, 0, 0, 0.25) !important;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg) !important;
+  gap: 10px !important;
+  box-shadow: none !important;
+}
+
+/* All buttons base */
+.driver-popover-footer button,
+.driver-popover-navigation-btns button {
+  padding: 10px 18px !important;
+  min-height: 40px !important;
+  border-radius: var(--radius-md) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-shadow: none !important;
+  letter-spacing: 0 !important;
+  text-rendering: optimizeLegibility !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  line-height: 1 !important;
+  min-width: 80px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* Previous (Back) button - secondary: neutral outline */
+.driver-popover-prev-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  font-weight: 500 !important;
+  text-shadow: none !important;
+}
+.driver-popover-prev-btn:hover {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: #FFFFFF !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+/* Next button - primary */
+.driver-popover-next-btn {
+  background: #0B8C5D !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  text-shadow: none !important;
+  letter-spacing: 0 !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  text-rendering: optimizeLegibility !important;
+}
+.driver-popover-next-btn * {
+  text-shadow: none !important;
+  transform: none !important;
+}
+.driver-popover-next-btn:hover {
+  background: rgba(11, 140, 93, 0.9) !important;
+  color: #FFFFFF !important;
+}
+
+/* Done button - primary */
+.driver-popover-done-btn {
+  background: #0B8C5D !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  text-shadow: none !important;
+  letter-spacing: 0 !important;
+}
+.driver-popover-done-btn:hover {
+  background: rgba(11, 140, 93, 0.9) !important;
+  color: #FFFFFF !important;
+}
+
+/* Highlighted element */
+.driver-active-element {
+  outline: 3px solid #0B8C5D !important;
+  outline-offset: 4px !important;
+  animation: tutorialPulse 2s ease-in-out infinite !important;
+}
+
+canvas.driver-active-element {
+  outline-offset: 0 !important;
+}
+
+/* Ensure panel-actions and hudBar are highlightable */
+.panel-actions.driver-active-element {
+  position: relative !important;
+  z-index: 10000 !important;
+  outline: 3px solid #0B8C5D !important;
+  outline-offset: 4px !important;
+  animation: tutorialPulse 2s ease-in-out infinite !important;
+}
+/* #hudBar: не трогать position — на мобиле он fixed bottom, иначе подсветка уезжает вверх */
+#hudBar.driver-active-element {
+  z-index: 10000 !important;
+  outline: 3px solid #0B8C5D !important;
+  outline-offset: 4px !important;
+  animation: tutorialPulse 2s ease-in-out infinite !important;
+}
+
+@keyframes tutorialPulse {
+  0%, 100% {
+    outline-color: #0B8C5D;
+  }
+  50% {
+    outline-color: rgba(11, 140, 93, 0.8);
+  }
+}
+
+/* Tutorial active state */
+body.tutorial-active canvas {
+  pointer-events: auto !important;
+}
+
+body.tutorial-active #helpModal,
+body.tutorial-active #helpOverlay {
+  display: none !important;
+}
+
+/* Welcome/Finish modal */
+.driver-popover.tutorial-welcome {
+  max-width: 380px !important;
+  text-align: center !important;
+}
+.driver-popover.tutorial-welcome .driver-popover-title {
+  font-size: 18px !important;
+  padding: 22px 22px 0 !important;
+}
+.driver-popover.tutorial-welcome .driver-popover-description {
+  padding: 14px 22px 18px !important;
+}
+.driver-popover.tutorial-welcome .driver-popover-footer {
+  justify-content: center !important;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .driver-popover {
+    max-width: 300px !important;
+  }
+  .driver-popover-title {
+    font-size: 15px !important;
+    padding: 16px 40px 0 16px !important;
+  }
+  .driver-popover-description {
+    font-size: 13px !important;
+    padding: 10px 16px 14px !important;
+  }
+  .driver-popover-footer button {
+    padding: 8px 14px !important;
+    min-height: 38px !important;
+    font-size: 12px !important;
+    min-width: 70px !important;
+  }
+}

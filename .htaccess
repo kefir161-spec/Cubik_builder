@@ -1,0 +1,8 @@
+# Отключаем mod_rewrite только в этой папке
+RewriteEngine Off
+
+# (необязательно) явно указываем индекс
+DirectoryIndex index.html index.php
+
+# (по желанию) разрешить листинг, если нужно
+# Options +Indexes

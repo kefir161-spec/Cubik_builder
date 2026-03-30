@@ -394,65 +394,82 @@
   }
 
   // =============================================================================
-  // GLB Export
+  // GLB Export (console only). Merges meshes by material = меньший размер без потери данных.
   // =============================================================================
+
+  /** Сливает меши по материалу — один меш на цвет вместо одного на блок. Размер GLB сильно падает. */
+  function mergeExportGroupForSize(root) {
+    if (!root || typeof THREE === 'undefined' || !THREE.BufferGeometryUtils || !THREE.BufferGeometryUtils.mergeBufferGeometries) {
+      return root;
+    }
+    var meshes = [];
+    root.traverse(function(obj) {
+      if (obj.isMesh && obj.geometry) meshes.push(obj);
+    });
+    if (meshes.length === 0) return root;
+
+    var byKey = {};
+    for (var i = 0; i < meshes.length; i++) {
+      var mesh = meshes[i];
+      var mat = mesh.material;
+      var key = 'default';
+      if (mat) {
+        if (mat.userData && mat.userData.baseHex) key = mat.userData.baseHex;
+        else if (mat.color && typeof mat.color.getHexString === 'function') key = '#' + mat.color.getHexString();
+        else key = mat.uuid || key;
+      }
+      if (!byKey[key]) byKey[key] = { material: mat, geometries: [] };
+      var geom = mesh.geometry.clone();
+      if (mesh.matrixWorld) geom.applyMatrix4(mesh.matrixWorld);
+      byKey[key].geometries.push(geom);
+    }
+
+    var out = new THREE.Group();
+    for (var k in byKey) {
+      var entry = byKey[k];
+      if (entry.geometries.length === 0) continue;
+      var merged;
+      try {
+        merged = THREE.BufferGeometryUtils.mergeBufferGeometries(entry.geometries, true);
+      } catch (e) {
+        merged = entry.geometries[0];
+      }
+      if (merged) out.add(new THREE.Mesh(merged, entry.material));
+    }
+    return out;
+  }
 
   function exportGLB(filename) {
     if (!THREE.GLTFExporter) {
-      alert('GLTFExporter not available');
+      console.warn('GLTFExporter not available');
       return;
     }
-
     try {
-      if (global.CubikLoader) {
-        global.CubikLoader.show('Exporting GLB...');
-      }
-
       var exporter = new THREE.GLTFExporter();
-
-      var root;
-      if (typeof global.buildExportGroup === 'function') {
-        root = global.buildExportGroup();
-      } else {
-        root = global.scene;
-      }
+      var root = typeof global.buildExportGroup === 'function'
+        ? global.buildExportGroup()
+        : global.scene;
+      root = mergeExportGroupForSize(root);
 
       exporter.parse(root, function(result) {
         try {
           var blob = new Blob([result], { type: 'model/gltf-binary' });
           var url = URL.createObjectURL(blob);
-
           var a = document.createElement('a');
           a.href = url;
-          a.download = filename || 'scene.glb';
+          a.download = (typeof filename === 'string' && filename) ? filename : 'scene.glb';
           document.body.appendChild(a);
           a.click();
-
           setTimeout(function() {
             URL.revokeObjectURL(url);
             try { a.remove(); } catch (e) {}
           }, 1000);
-
-          if (global.CubikUI && global.CubikUI.showStatus) {
-            global.CubikUI.showStatus('Scene exported to GLB', true);
-          }
         } catch (e) {
           console.error('[IO] GLB export error:', e);
-        } finally {
-          if (global.CubikLoader) {
-            global.CubikLoader.hide();
-          }
         }
-      }, {
-        binary: true,
-        onlyVisible: true,
-        trs: false
-      });
+      }, { binary: true, onlyVisible: true, trs: false });
     } catch (e) {
       console.error('[IO] GLB export error:', e);
-      if (global.CubikLoader) {
-        global.CubikLoader.hide();
-      }
     }
   }
 
@@ -507,13 +524,6 @@
       importJsonInput.addEventListener('change', handleFileInput);
     }
 
-    var exportGlbBtn = document.getElementById('exportGlbBtn');
-    if (exportGlbBtn && !exportGlbBtn._ioInitialized) {
-      exportGlbBtn._ioInitialized = true;
-      exportGlbBtn.addEventListener('click', function() {
-        exportGLB();
-      });
-    }
   }
 
   // =============================================================================

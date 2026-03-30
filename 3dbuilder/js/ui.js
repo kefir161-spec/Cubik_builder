@@ -3,17 +3,17 @@
  * @module ui
  * @description User interface components and interactions
  * @author Andrey Bovdurets
- * @version 1.1
+ * @version 1.2
  */
 (function(global) {
   'use strict';
 
   // =============================================================================
-  // Help Modal
+  // Help Modal & Tutorial Integration
   // =============================================================================
 
   /**
-   * Open help modal
+   * Open help modal (legacy)
    */
   function openHelp() {
     document.body.classList.add('help-open');
@@ -39,6 +39,30 @@
    */
   function isHelpOpen() {
     return document.body.classList.contains('help-open');
+  }
+
+  /**
+   * Start interactive tutorial tour
+   * @param {boolean} [force=true] - Start even if already completed
+   */
+  function startTour(force) {
+    if (global.CubikTutorial && typeof global.CubikTutorial.start === 'function') {
+      global.CubikTutorial.start(force !== false);
+    } else {
+      // Fallback to legacy help modal if tutorial not available
+      console.warn('[UI] Tutorial module not available, opening help modal');
+      openHelp();
+    }
+  }
+
+  /**
+   * Handle help button click
+   * - Normal click: open help modal (quick start)
+   * @param {MouseEvent} e - Click event
+   */
+  function handleHelpClick(e) {
+    // Normal click opens help modal
+    openHelp();
   }
 
   // =============================================================================
@@ -200,9 +224,19 @@
     var helpClose = document.getElementById('helpClose');
     var helpStart = document.getElementById('helpStart');
 
+    // Help button: opens help modal (quick start)
     if (helpBtn && !helpBtn._uiInitialized) {
       helpBtn._uiInitialized = true;
-      helpBtn.addEventListener('click', openHelp);
+      helpBtn.addEventListener('click', handleHelpClick);
+    }
+    
+    // Tutorial button: starts interactive tutorial
+    var tutorialBtn = document.getElementById('tutorialBtn');
+    if (tutorialBtn && !tutorialBtn._uiInitialized) {
+      tutorialBtn._uiInitialized = true;
+      tutorialBtn.addEventListener('click', function() {
+        startTour(true);
+      });
     }
     if (helpOverlay && !helpOverlay._uiInitialized) {
       helpOverlay._uiInitialized = true;
@@ -212,9 +246,25 @@
       helpClose._uiInitialized = true;
       helpClose.addEventListener('click', closeHelp);
     }
+    // Help Start button - just closes the modal
     if (helpStart && !helpStart._uiInitialized) {
       helpStart._uiInitialized = true;
-      helpStart.addEventListener('click', closeHelp);
+      helpStart.addEventListener('click', function() {
+        closeHelp();
+      });
+    }
+    
+    // Tutorial button inside help modal - starts interactive tutorial
+    var helpTutorialBtn = document.getElementById('helpTutorialBtn');
+    if (helpTutorialBtn && !helpTutorialBtn._uiInitialized) {
+      helpTutorialBtn._uiInitialized = true;
+      helpTutorialBtn.addEventListener('click', function() {
+        closeHelp();
+        // Start tutorial after help modal closes
+        setTimeout(function() {
+          startTour(true);
+        }, 200);
+      });
     }
 
     // NOTE: Navigation bindings are in index.html - do not duplicate here
@@ -226,10 +276,8 @@
       window.addEventListener('keydown', handleKeyboard);
     }
 
-    // Open help on start (first visit experience)
-    try {
-      openHelp();
-    } catch (e) {}
+    // NOTE: Auto-start is now handled by tutorial.js module
+    // First-time visitors will see the interactive tour automatically
   }
 
   // =============================================================================
@@ -247,11 +295,12 @@
   // =============================================================================
 
   global.CubikUI = {
-    // Help
+    // Help & Tutorial
     openHelp: openHelp,
     closeHelp: closeHelp,
     toggleHelp: toggleHelp,
     isHelpOpen: isHelpOpen,
+    startTour: startTour,
 
     // Navigation
     openNav: openNav,
@@ -280,5 +329,6 @@
   global.openHelp = openHelp;
   global.closeHelp = closeHelp;
   global.msg = showStatus;
+  global.startTour = startTour;
 
 })(window);

@@ -1,0 +1,51 @@
+# PRODUCTION PATHS - CONFIGURED
+# ==========================================
+# Дата обновления: 2026-02-04
+# 
+# ✅ Пути настроены для продакшена (абсолютные /3dbuilder/)
+# index.html обновлён: все пути /3dbuilder/, версия 1.5.48 (v=1588)
+#
+# ======== Текущая конфигурация ========
+# index.html:  /3dbuilder/css/styles.css
+# index.html:  /3dbuilder/js/*.js
+# index.html:  /3dbuilder/icons/*.png|svg
+# app.js:      /3dbuilder/models/*.obj
+#
+# ======== Структура на сервере ========
+# /
+# ├── index.html          (главная страница редактора)
+# ├── builder/  (на сервере папка может называться 3dbuilder; URL — /3dbuilder/)
+# │   ├── css/
+# │   │   └── styles.css
+# │   ├── js/
+# │   │   ├── app.js
+# │   │   ├── autosave.js
+# │   │   ├── backend-api.js
+# │   │   ├── cubik-shop-map.js
+# │   │   ├── history.js
+# │   │   ├── i18n.js
+# │   │   ├── io.js
+# │   │   ├── loader.js
+# │   │   ├── mobile.js
+# │   │   ├── pdf-instructions.js
+# │   │   ├── renderer.js
+# │   │   ├── shop-on-save.cubik.one.js
+# │   │   ├── thumbnail.js
+# │   │   ├── ui.js
+# │   │   └── utils.js
+# │   ├── icons/
+# │   │   └── *.png, *.svg
+# │   ├── models/
+# │   │   ├── Bion.obj
+# │   │   ├── Flora.obj
+# │   │   ├── Void.obj
+# │   │   ├── Zen.obj
+# │   │   └── Zen_2.obj
+# │   └── Video/
+# │       └── Plug.mp4
+#
+# ======== API Endpoints ========
+# POST /add-new-resource-api/  - отправка проекта в магазин (Continue кнопка)
+#
+# ======== Для локальной разработки ========
+# Замените /3dbuilder/ на ./3dbuilder/ везде

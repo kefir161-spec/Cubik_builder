@@ -175,6 +175,63 @@
   }
 
   /**
+   * Show restore confirmation dialog
+   * @param {number} objectCount - Number of objects to restore
+   */
+  function showRestoreDialog(objectCount) {
+    // Create overlay
+    var overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:10000;display:flex;align-items:center;justify-content:center;';
+
+    // Create dialog
+    var dialog = document.createElement('div');
+    dialog.style.cssText = 'background:#fff;border-radius:14px;padding:24px 32px;max-width:400px;text-align:center;font-family:system-ui,-apple-system,sans-serif;';
+
+    dialog.innerHTML = 
+      '<div style="font-size:48px;margin-bottom:12px;">💾</div>' +
+      '<h2 style="margin:0 0 8px;font-size:20px;color:#333;">Восстановить сцену?</h2>' +
+      '<p style="margin:0 0 20px;color:#666;font-size:14px;">Найдена сохранённая конструкция<br>(' + objectCount + ' ' + pluralize(objectCount, 'куб', 'куба', 'кубов') + ')</p>' +
+      '<div style="display:flex;gap:12px;justify-content:center;">' +
+        '<button id="autosave-restore" style="padding:10px 24px;font-size:14px;border:none;border-radius:10px;cursor:pointer;background:#0B8C5D;color:#fff;font-weight:500;">Восстановить</button>' +
+        '<button id="autosave-discard" style="padding:10px 24px;font-size:14px;border:none;border-radius:10px;cursor:pointer;background:#f5f5f5;color:#333;">Начать заново</button>' +
+      '</div>';
+
+    overlay.appendChild(dialog);
+    document.body.appendChild(overlay);
+
+    // Button handlers
+    document.getElementById('autosave-restore').onclick = function() {
+      tryRestore();
+      overlay.remove();
+    };
+
+    document.getElementById('autosave-discard').onclick = function() {
+      clear();
+      restored = true; // Prevent further restore attempts
+      overlay.remove();
+    };
+
+    // Close on overlay click
+    overlay.onclick = function(e) {
+      if (e.target === overlay) {
+        overlay.remove();
+      }
+    };
+  }
+
+  /**
+   * Russian pluralization helper
+   */
+  function pluralize(n, one, few, many) {
+    var mod10 = n % 10;
+    var mod100 = n % 100;
+    if (mod100 >= 11 && mod100 <= 19) return many;
+    if (mod10 === 1) return one;
+    if (mod10 >= 2 && mod10 <= 4) return few;
+    return many;
+  }
+
+  /**
    * Check if autosave data exists
    * @returns {boolean}
    */
@@ -270,9 +327,14 @@
     // Keyboard guards
     window.addEventListener('keydown', handleKeydown, true);
 
-    // Warn before unload if dirty
+    // Warn before unload if scene has objects (protection from accidental close)
     window.addEventListener('beforeunload', function(e) {
-      if (isDirty) {
+      var hasObjects = false;
+      try {
+        hasObjects = global.objects && global.objects.length > 0;
+      } catch(err) {}
+      
+      if (hasObjects) {
         e.preventDefault();
         e.returnValue = '';
       }
@@ -301,16 +363,32 @@
       }
     } catch (e) {}
 
-    // Try to restore on load
+    // Scene restoration disabled - scene clears on reload
+    // To re-enable, uncomment the restore dialog code below
     window.addEventListener('load', function() {
-      var startTime = Date.now();
-      var intervalId = setInterval(function() {
-        if (tryRestore() || (Date.now() - startTime > RESTORE_TIMEOUT)) {
-          clearInterval(intervalId);
-        }
-      }, 300);
+      // Clear any saved data on fresh load (no auto-restore)
+      clear();
+      
+      /* DISABLED: Restore dialog
+      if (pendingData) {
+        try {
+          var arr = JSON.parse(pendingData);
+          if (Array.isArray(arr) && arr.length > 0) {
+            var startTime = Date.now();
+            var checkInterval = setInterval(function() {
+              if (isReady()) {
+                clearInterval(checkInterval);
+                showRestoreDialog(arr.length);
+              } else if (Date.now() - startTime > RESTORE_TIMEOUT) {
+                clearInterval(checkInterval);
+              }
+            }, 300);
+          }
+        } catch (e) {}
+      }
+      */
 
-      // Periodic autosave
+      // Periodic autosave (still saves for undo/redo, just doesn't restore on reload)
       setInterval(scheduleSave, AUTO_SAVE_INTERVAL);
     }, { once: true });
   }

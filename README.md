@@ -1,6 +1,6 @@
 # Cubik Builder — Web 3D-конфигуратор / редактор
 
-**Актуальный код и разработка:** [github.com/kefir161-spec/Cubik_builder](https://github.com/kefir161-spec/Cubik_builder) (последнее обновление репозитория — **20.02.2026**)  
+**Актуальный код и разработка:** [github.com/kefir161-spec/Cubik_builder](https://github.com/kefir161-spec/Cubik_builder) (последнее обновление кода в репозитории — **30.03.2026**)  
 **Публичное демо:** https://cubik.one/builder/
 
 ---
