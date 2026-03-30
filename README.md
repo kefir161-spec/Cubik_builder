@@ -36,7 +36,7 @@
 
 | Дата (push) | Репозиторий | Комментарий (из описания репо) |
 |-------------|-------------|--------------------------------|
-| 2026-02-20 | **[Cubik_builder](https://github.com/kefir161-spec/Cubik_builder)** | **Текущая версия** — этот репозиторий |
+| 2026-03-30 | **[Cubik_builder](https://github.com/kefir161-spec/Cubik_builder)** | **Текущая версия** — этот репозиторий |
 | 2025-12-16 | [3d_builder](https://github.com/kefir161-spec/3d_builder) | full pack |
 | 2025-12-15 | [Cubik_v10](https://github.com/kefir161-spec/Cubik_v10) | мультиязычность |
 | 2025-12-11 | [Service_version](https://github.com/kefir161-spec/Service_version) | service-сборка |
