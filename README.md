@@ -1,6 +1,6 @@
 # Cubik Builder — Web 3D-конфигуратор / редактор
 
-**Актуальный код и разработка:** [github.com/kefir161-spec/Cubik_builder](https://github.com/kefir161-spec/Cubik_builder) (последнее обновление кода в репозитории — **30.03.2026**)  
+**Актуальный код и разработка:** [github.com/kefir161-spec/cubik-builder-v16](https://github.com/kefir161-spec/cubik-builder-v16) (последнее обновление кода в репозитории — **30.03.2026**)  
 **Публичное демо:** https://cubik.one/builder/
 
 ---
@@ -13,7 +13,7 @@
 | **Зачем компании** | Self-service конфигуратор: меньше ручной работы менеджеров, выше вовлечённость клиента, предсказуемый экспорт в заказ. |
 | **Стек** | HTML/CSS, JavaScript, **WebGL / Three.js**, REST API, клиентское сохранение состояния (в т.ч. autosave, undo/redo). |
 | **Роль автора** | End-to-end: продукт, архитектура фронта, UX/UI редактора, интеграции, оптимизация; координация 3D под поставку ассетов. |
-| **История версий** | Ниже — линейка публичных репозиториев с эволюцией фич; **рабочая версия — этот репозиторий (`Cubik_builder`)**. |
+| **История версий** | Ниже — линейка репозиториев **`cubik-builder-v01` … `v16`** (хронология слева направо); **рабочая версия — `cubik-builder-v16` (этот репозиторий)**. |
 
 Остальные проекты на профиле (корпоративная платформа, лендинг, мобильные приложения и т.д.) — **отдельные продукты**, к коду редактора не относятся.
 
@@ -32,27 +32,26 @@
 
 ## Эволюция версий (репозитории на GitHub)
 
-Ниже — **только линейка 3D-редактора/билдера**, по дате последнего push (новые сверху). Старые репозитории можно считать архивом этапов; актуальная разработка ведётся в **`Cubik_builder`**.
+Репозитории переименованы в единую схему **`cubik-builder-v01` … `cubik-builder-v16`** — от самого раннего этапа к текущему. Старые URL GitHub перенаправляет на новые. В списке ниже — **хронология с первой версии к последней**.
 
-| Дата (push) | Репозиторий | Комментарий (из описания репо) |
-|-------------|-------------|--------------------------------|
-| 2026-03-30 | **[Cubik_builder](https://github.com/kefir161-spec/Cubik_builder)** | **Текущая версия** — этот репозиторий |
-| 2025-12-16 | [3d_builder](https://github.com/kefir161-spec/3d_builder) | full pack |
-| 2025-12-15 | [Cubik_v10](https://github.com/kefir161-spec/Cubik_v10) | мультиязычность |
-| 2025-12-11 | [Service_version](https://github.com/kefir161-spec/Service_version) | service-сборка |
-| 2025-12-08 | [Cubik_v9](https://github.com/kefir161-spec/Cubik_v9) | true save |
-| 2025-12-05 | [Cubik_v8](https://github.com/kefir161-spec/Cubik_v8) | новый дизайн |
-| 2025-12-03 | [Cubik_v7](https://github.com/kefir161-spec/Cubik_v7) | save, анимация, timelapse, debug |
-| 2025-12-03 | [Cubik_v6](https://github.com/kefir161-spec/Cubik_v6) | timelapse |
-| 2025-11-25 | [Cubik_v5](https://github.com/kefir161-spec/Cubik_v5) | save и анимация |
-| 2025-11-24 | [Cubik_v4](https://github.com/kefir161-spec/Cubik_v4) | save |
-| 2025-11-21 | [Cubik_v3](https://github.com/kefir161-spec/Cubik_v3) | новый интерфейс, копирование, Zen/2, оптимизация, фиксы |
-| 2025-11-21 | [Cubik_v2](https://github.com/kefir161-spec/Cubik_v2) | то же направление развития (параллельный этап) |
-| 2025-11-13 | [Cubik_Editor](https://github.com/kefir161-spec/Cubik_Editor) | docking, функция USE для копирования, оптимизация |
-| 2025-11-07 | [Editor_v2](https://github.com/kefir161-spec/Editor_v2) | промежуточный этап редактора |
-| 2025-11-04 | [Cubik-Editor](https://github.com/kefir161-spec/Cubik-Editor) | ранняя публичная версия редактора |
-
-Ранний прототип также вёлся в приватном репозитории **Cubik** (октябрь 2025) — без публичной ссылки.
+| Версия | Было (старое имя) | Дата (ориентир по push) | Комментарий |
+|--------|-------------------|-------------------------|-------------|
+| **[cubik-builder-v01](https://github.com/kefir161-spec/cubik-builder-v01)** | `Cubik` | 2025-10 | Ранний прототип (**приватный** репозиторий) |
+| [cubik-builder-v02](https://github.com/kefir161-spec/cubik-builder-v02) | `Cubik-Editor` | 2025-11 | Ранняя публичная версия редактора |
+| [cubik-builder-v03](https://github.com/kefir161-spec/cubik-builder-v03) | `Editor_v2` | 2025-11 | Промежуточный этап редактора |
+| [cubik-builder-v04](https://github.com/kefir161-spec/cubik-builder-v04) | `Cubik_Editor` | 2025-11 | Docking, функция USE для копирования, оптимизация |
+| [cubik-builder-v05](https://github.com/kefir161-spec/cubik-builder-v05) | `Cubik_v2` | 2025-11 | Параллельный этап развития интерфейса и Zen/2 |
+| [cubik-builder-v06](https://github.com/kefir161-spec/cubik-builder-v06) | `Cubik_v3` | 2025-11 | Новый интерфейс, копирование, Zen/2, оптимизация, фиксы |
+| [cubik-builder-v07](https://github.com/kefir161-spec/cubik-builder-v07) | `Cubik_v4` | 2025-11 | Save |
+| [cubik-builder-v08](https://github.com/kefir161-spec/cubik-builder-v08) | `Cubik_v5` | 2025-11 | Save и анимация |
+| [cubik-builder-v09](https://github.com/kefir161-spec/cubik-builder-v09) | `Cubik_v6` | 2025-12 | Timelapse |
+| [cubik-builder-v10](https://github.com/kefir161-spec/cubik-builder-v10) | `Cubik_v7` | 2025-12 | Save, анимация, timelapse, debug |
+| [cubik-builder-v11](https://github.com/kefir161-spec/cubik-builder-v11) | `Cubik_v8` | 2025-12 | Новый дизайн |
+| [cubik-builder-v12](https://github.com/kefir161-spec/cubik-builder-v12) | `Cubik_v9` | 2025-12 | True save |
+| [cubik-builder-v13](https://github.com/kefir161-spec/cubik-builder-v13) | `Service_version` | 2025-12 | Service-сборка |
+| [cubik-builder-v14](https://github.com/kefir161-spec/cubik-builder-v14) | `Cubik_v10` | 2025-12 | Мультиязычность |
+| [cubik-builder-v15](https://github.com/kefir161-spec/cubik-builder-v15) | `3d_builder` | 2025-12 | Full pack |
+| **[cubik-builder-v16](https://github.com/kefir161-spec/cubik-builder-v16)** | `Cubik_builder` | 2026-03 | **Текущая версия** — этот репозиторий |
 
 ---
 
